@@ -1,6 +1,6 @@
 ---
 name: kaizen-dev
-description: Use when implementing, debugging, refactoring, or reviewing code. Inspect the actual repository before editing, make the smallest complete change, verify it, and report what was checked.
+description: Use when implementing, debugging, refactoring, or reviewing code. Trace the actual implementation before editing, make the smallest complete change, verify it, and report what was checked.
 ---
 
 # Kaizen Dev
@@ -11,7 +11,7 @@ Use this workflow for coding tasks. Adapt the depth of investigation and verific
 
 ## Workflow
 
-1. **Look before writing.** Read the repository instructions, inspect the current working-tree changes, and examine the code and tests relevant to the request. Trace the existing behavior far enough to identify the real implementation path, the local pattern, and the most relevant check. Start with targeted, read-only exploration. Do not edit code, tests, configuration, or documentation to discover how the project works. A small, direct task needs a small inspection, not a survey of the whole repository. If the relevant path or expected behavior is still unclear, keep investigating without writes or ask the user when repository evidence cannot resolve it.
+1. **Look before writing.** Read the repository instructions, inspect the current working-tree changes, and examine the code and tests relevant to the request. Trace the behavior from its entry point or caller to the implementation that actually handles it. Confirm that any nearby pattern you plan to reuse is on this active path and fits the same constraints; a similar name or search hit is not proof. Use targeted, read-only exploration. Do not edit code, tests, configuration, or documentation to discover how the project works. A small, direct task needs a small inspection, not a survey of the whole repository. If the relevant path or expected behavior is still unclear, keep investigating without writes or ask the user when repository evidence cannot resolve it.
 2. **Bound the outcome.** Restate the requested behavior in observable terms. Identify constraints and the narrowest affected surface. If a missing decision would materially change behavior, cost, data, or safety, ask before proceeding. Otherwise state a reasonable assumption briefly and continue.
 3. **Plan proportionately.** For a one-file, low-risk change, proceed without a ceremony. For broad, ambiguous, or high-risk work, give a short plan before editing. Prefer the smallest change that fully satisfies the request. Avoid speculative features, unnecessary dependencies, and unrelated cleanup.
 4. **Implement in the repository's style.** Preserve existing public behavior unless the request changes it. Use clear names and existing abstractions. Add a test for the changed behavior when a relevant test pattern exists. Explain non-obvious business constraints in a comment; do not narrate obvious code.
@@ -23,7 +23,7 @@ Use this workflow for coding tasks. Adapt the depth of investigation and verific
 
 - Preserve changes you did not make. Never overwrite or discard user work to obtain a clean diff.
 - Follow repository instructions and existing conventions unless they conflict with the user's request or create a safety issue. Explain the conflict instead of silently choosing.
-- Do not write first and inspect later. The first change must follow enough read-only investigation to identify the relevant code path, existing test or verification method, and project constraints.
+- Do not write first and inspect later. Before the first edit, identify the active implementation path, confirm any local pattern is actually used there, find the relevant tests or verification method, and note project constraints.
 - Prefer one small, reversible step over a broad rewrite. Do not add flexibility for hypothetical future requirements.
 - A failing test is evidence to investigate, not permission to weaken the test. Establish a baseline when practical and distinguish pre-existing failures from regressions.
 - Do not claim that a test, build, review, deployment, or other action happened unless it did.

@@ -2,11 +2,11 @@
 
 The skill is a loop, not a rigid checklist. Use more investigation and stronger verification when the risk is higher. A typo fix should stay small; a permission change, migration, or security boundary needs more care.
 
-## 1. Look before writing
+## 1. Trace the real path before writing
 
-Start with read-only reconnaissance. Read the repository's agent instructions and inspect the current working-tree changes. Locate the relevant implementation, trace how the requested behavior reaches it, and look for nearby tests and established patterns. Find the actual test and build commands in project documentation or configuration.
+Start with read-only reconnaissance. Read the repository's agent instructions and inspect the current working-tree changes. Locate the relevant entry point, then follow callers to the implementation that actually handles the requested behavior. Check nearby tests, fixtures, and established patterns. Before reusing a similar helper, verify that the active code path calls it and that it has the same constraints; the first matching filename or search result may be legacy, test-only, or irrelevant. Find the actual test and build commands in project documentation or configuration.
 
-Do not edit code, tests, or documentation just to discover how the project is structured. Keep the inspection focused: a one-line text change does not require reading the entire repository. Before the first write, the agent should be able to name the relevant implementation path, the behavior it intends to change, and the most useful verification step. If it cannot, it should keep investigating without writes or ask the user when the repository does not answer the question.
+Do not edit code, tests, or documentation just to discover how the project is structured. Keep the inspection focused: a one-line text change does not require reading the entire repository. Before the first write, the agent should be able to name the active implementation path, the behavior it intends to change, the relevant local pattern, and the most useful verification step. If it cannot, it should keep investigating without writes or ask the user when the repository does not answer the question.
 
 ## 2. Define a bounded outcome
 
