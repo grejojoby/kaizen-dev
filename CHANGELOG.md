@@ -8,4 +8,5 @@
 - Add a static Japanese-principle-inspired product landing page and GitHub Pages deployment workflow.
 - Refresh product headlines and the social preview to foreground focused, no-blind-edit changes.
 - Add risk-based test guidance: protect meaningful behavior, avoid coverage-only tests, and test short code when its contract warrants it.
+- Add a landing-page section explaining coverage as a signal and contrasting redundant tests with behavior-focused regression tests.
 - No model benchmark or cross-agent compatibility test is claimed in this draft.

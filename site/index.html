@@ -35,6 +35,7 @@
       </a>
       <nav class="main-nav" aria-label="Main navigation">
         <a href="#method">Method</a>
+        <a href="#test-quality">Tests</a>
         <a href="#principles">Principles</a>
         <a href="#install">Install</a>
       </nav>
@@ -112,6 +113,45 @@
         <li><span class="method-number">04</span><div><h3>Verify</h3><p>Test behavior and risk—not coverage for its own sake. Treat failures as evidence; show what you checked.</p></div><span class="method-tag">SHOW THE RESULT</span></li>
         <li><span class="method-number">05</span><div><h3>Report</h3><p>Summarize the diff, checks, and uncertainty in plain language.</p></div><span class="method-tag">NO HIDDEN GAPS</span></li>
       </ol>
+    </section>
+
+    <section class="test-quality-section" id="test-quality" aria-labelledby="test-quality-title">
+      <div class="test-quality-inner section-wrap">
+        <div class="section-kicker"><span>TEST QUALITY</span><span>CONFIDENCE OVER COVERAGE</span></div>
+        <div class="section-heading test-quality-heading">
+          <h2 id="test-quality-title">Chase confidence.<br><em>Not 100%.</em></h2>
+          <p>Coverage can reveal code no test reaches. But a perfect line score cannot prove a test would catch a real regression. Choose tests for behavior, contracts, and risk—not for the percentage alone.</p>
+        </div>
+
+        <div class="test-quality-cards">
+          <article class="test-quality-card coverage-card">
+            <div class="test-quality-card-meta"><span>01 / THE SIGNAL</span><span>MEASURED</span></div>
+            <strong class="test-quality-display">100%</strong>
+            <h3>Lines executed</h3>
+            <p>A useful reachability signal. Not proof that assertions will fail when important behavior breaks.</p>
+          </article>
+          <article class="test-quality-card confidence-card">
+            <div class="test-quality-card-meta"><span>02 / THE QUESTION</span><span>BEHAVIOR</span></div>
+            <strong class="test-quality-display">Would it catch<br>a real bug?</strong>
+            <h3>Meaningful confidence</h3>
+            <p>Test a contract, edge case, or regression where that behavior matters to its caller.</p>
+          </article>
+        </div>
+
+        <div class="test-quality-examples" aria-label="Examples of sensible test choices">
+          <article class="test-quality-example test-quality-example-skip">
+            <p class="test-example-label"><span aria-hidden="true">—</span> SKIP THE DUPLICATE</p>
+            <p>No separate test for a one-line <code>trimName</code> helper if the existing form test already verifies the result end to end.</p>
+          </article>
+          <article class="test-quality-example test-quality-example-add">
+            <p class="test-example-label"><span aria-hidden="true">+</span> KEEP THE REGRESSION TEST</p>
+            <p>Reject <code>report.csv.exe</code> at the upload boundary while continuing to accept <code>report.csv</code>.</p>
+          </article>
+        </div>
+
+        <p class="test-quality-note">Honor a documented project threshold when one is required. Otherwise, add tests for the assurance they provide—not to make a coverage number move.</p>
+        <a class="arrow-link" href="https://github.com/grejojoby/kaizen-dev/blob/main/evals/cases.json" target="_blank" rel="noreferrer">See the test-quality evaluation scenarios <span aria-hidden="true">↗</span></a>
+      </div>
     </section>
 
     <section class="path-section" aria-labelledby="path-title">

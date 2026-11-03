@@ -108,6 +108,30 @@ button { font: inherit; }
 .method-list p { margin: 0; color: var(--ink-soft); font-size: 12px; line-height: 1.6; }
 .method-tag { justify-self: end; color: var(--ink-faint); font-size: 8px; text-align: right; }
 
+.test-quality-section { border-block: 1px solid var(--rule); background: var(--paper-light); }
+.test-quality-inner { padding-block: 98px 104px; }
+.test-quality-heading { margin-bottom: 37px; }
+.test-quality-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.test-quality-card { min-height: 247px; padding: 25px 27px 23px; border: 1px solid var(--rule); background: var(--paper); }
+.test-quality-card-meta { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--ink-faint); font-family: var(--mono); font-size: 8px; letter-spacing: .1em; }
+.test-quality-display { display: block; min-height: 76px; margin-top: 25px; color: var(--ink); font-family: var(--serif); font-size: 64px; font-weight: 500; letter-spacing: -.06em; line-height: .95; }
+.test-quality-card h3 { margin: 4px 0 8px; font-size: 13px; font-weight: 700; }
+.test-quality-card > p { max-width: 430px; margin: 0; color: var(--ink-soft); font-size: 11px; line-height: 1.7; }
+.confidence-card { border-color: var(--indigo); background: var(--indigo); color: #f6f1e7; }
+.confidence-card .test-quality-card-meta { color: #b7c3d2; }
+.confidence-card .test-quality-display { color: #f6f1e7; font-size: clamp(33px, 4vw, 49px); letter-spacing: -.055em; line-height: 1.02; }
+.confidence-card h3 { color: #f6f1e7; }
+.confidence-card > p { color: #cbd2dc; }
+.test-quality-examples { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 16px; }
+.test-quality-example { padding: 19px 22px; border-top: 2px solid var(--rule); background: rgba(233, 227, 215, .42); }
+.test-quality-example-add { border-top-color: var(--red); }
+.test-example-label { margin: 0 0 9px; color: var(--ink-faint); font-family: var(--mono); font-size: 8px; letter-spacing: .1em; }
+.test-quality-example-add .test-example-label { color: var(--red-dark); }
+.test-example-label span { margin-right: 6px; color: var(--red); font-size: 12px; }
+.test-quality-example > p:last-child { margin: 0; color: var(--ink-soft); font-size: 11px; line-height: 1.7; }
+.test-quality-example code { color: var(--indigo); font-family: var(--mono); font-size: .94em; }
+.test-quality-note { margin: 22px 0 8px; color: var(--ink-faint); font-size: 10px; line-height: 1.7; }
+
 .path-section { overflow: hidden; background: var(--paper-deep); }
 .path-layout { display: grid; grid-template-columns: minmax(0, .91fr) minmax(410px, 1.09fr); gap: 90px; align-items: center; padding-top: 103px; padding-bottom: 106px; }
 .section-label { display: flex; align-items: center; gap: 10px; margin: 0 0 24px; color: var(--ink-faint); text-transform: uppercase; }
@@ -238,6 +262,7 @@ button { font: inherit; }
   .signal-strip code { font-size: 9px; }
   .signal-symbol { font-size: 13px; }
   .method-section, .principles-section { padding-top: 72px; padding-bottom: 78px; }
+  .test-quality-inner { padding-block: 72px 78px; }
   .section-heading { grid-template-columns: 1fr; gap: 16px; margin: 26px 0 34px; }
   .section-heading h2 { font-size: 48px; }
   .section-heading > p { font-size: 12px; }
@@ -245,6 +270,16 @@ button { font: inherit; }
   .method-list h3 { font-size: 20px; }
   .method-list p { font-size: 11px; }
   .method-tag { grid-column: 2; justify-self: start; margin-top: -3px; font-size: 7px; }
+  .test-quality-heading { gap: 15px; margin-bottom: 27px; }
+  .test-quality-heading h2 { font-size: 45px; }
+  .test-quality-heading > p { font-size: 12px; }
+  .test-quality-cards, .test-quality-examples { grid-template-columns: 1fr; gap: 11px; }
+  .test-quality-card { min-height: 0; padding: 19px 18px 20px; }
+  .test-quality-display { min-height: 61px; margin-top: 20px; font-size: 54px; }
+  .confidence-card .test-quality-display { min-height: 67px; font-size: 37px; }
+  .test-quality-card > p, .test-quality-example > p:last-child { font-size: 11px; }
+  .test-quality-example { padding: 16px 17px; }
+  .test-quality-note { font-size: 10px; }
   .path-layout { gap: 28px; padding-top: 72px; padding-bottom: 75px; }
   .path-copy h2 { font-size: 43px; }
   .path-copy > p:not(.section-label) { font-size: 12px; }
