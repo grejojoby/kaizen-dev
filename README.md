@@ -52,6 +52,6 @@ The skill adapts practices associated with *genchi genbutsu* (inspect the actual
 
 ## Try it. Check it.
 
-The [`SKILL.md`](skills/kaizen-dev/SKILL.md) is the whole runtime skill. Read a [worked example](examples/focused-bug-fix.md), try the [five evaluation scenarios](evals/cases.json), and use the [scoring rubric](docs/evaluation.md). No model-performance gain is claimed; results should be measured and reported with failures and setup details.
+The [`SKILL.md`](skills/kaizen-dev/SKILL.md) is the whole runtime skill. Read a [worked example](examples/focused-bug-fix.md), try the [behavior-evaluation scenarios](evals/cases.json), and use the [scoring rubric](docs/evaluation.md). No model-performance gain is claimed; results should be measured and reported with failures and setup details.
 
 [Principles](docs/principles.md) · [Workflow](docs/workflow.md) · [Research](docs/research.md) · [Contributing](CONTRIBUTING.md) · [Release checklist](docs/release-checklist.md) · [MIT License](LICENSE)
