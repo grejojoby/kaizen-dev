@@ -4,6 +4,8 @@
 
 A portable coding-agent skill: inspect the real project, make the smallest complete change, verify it, and report evidence.
 
+[View the Kaizen Dev landing page](https://grejojoby.github.io/kaizen-dev/) · [Install the skill](#install)
+
 ## Install
 
 With Node.js and npm available, install from GitHub for Claude Code:
@@ -54,4 +56,4 @@ The skill adapts practices associated with *genchi genbutsu* (inspect the actual
 
 The [`SKILL.md`](skills/kaizen-dev/SKILL.md) is the whole runtime skill. Read a [worked example](examples/focused-bug-fix.md), try the [behavior-evaluation scenarios](evals/cases.json), and use the [scoring rubric](docs/evaluation.md). No model-performance gain is claimed; results should be measured and reported with failures and setup details.
 
-[Principles](docs/principles.md) · [Workflow](docs/workflow.md) · [Research](docs/research.md) · [Contributing](CONTRIBUTING.md) · [Release checklist](docs/release-checklist.md) · [MIT License](LICENSE)
+[Principles](docs/principles.md) · [Workflow](docs/workflow.md) · [Research](docs/research.md) · [Contributing](CONTRIBUTING.md) · [Pages deployment](docs/pages-deployment.md) · [Release checklist](docs/release-checklist.md) · [MIT License](LICENSE)

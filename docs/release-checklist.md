@@ -11,6 +11,7 @@ A polished repository improves first-time use, but no structure or launch tactic
 - Run `python scripts/validate_repo.py`. Test the documented Claude Code install from a clean profile. Test at least one additional agent before describing that host as verified.
 - Make sure the install command selects only this skill. Keep the CLI's confirmation enabled in user-facing commands.
 - Review the first screen of the README on GitHub mobile and desktop. Keep the headline, quick install, short demo, and docs links visible before long background material.
+- Verify the GitHub Pages source is set to Actions. After a successful deploy, check the public URL, mobile layout, page metadata, and sitemap.
 - Do not add a star badge, benchmark result, compatibility claim, logo credit, or performance statistic that cannot be substantiated.
 
 ## After publishing

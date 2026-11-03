@@ -5,11 +5,14 @@ from __future__ import annotations
 
 import json
 import re
+import struct
 import sys
+from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import unquote
+from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
+SITE_URL = "https://grejojoby.github.io/kaizen-dev/"
 REQUIRED_FILES = (
     "README.md",
     "AGENTS.md",
@@ -26,8 +29,21 @@ REQUIRED_FILES = (
     "docs/research.md",
     "docs/repo-structure.md",
     "docs/release-checklist.md",
+    "docs/pages-deployment.md",
     "examples/focused-bug-fix.md",
     "evals/cases.json",
+    ".github/workflows/deploy-pages.yml",
+    "site/index.html",
+    "site/styles.css",
+    "site/app.js",
+    "site/404.html",
+    "site/robots.txt",
+    "site/sitemap.xml",
+    "site/.nojekyll",
+    "site/assets/mark.svg",
+    "site/assets/og-card.png",
+    "scripts/social-card.html",
+    "scripts/render-social-card.sh",
 )
 REQUIRED_SKILL_HEADINGS = (
     "## Workflow",
@@ -35,6 +51,21 @@ REQUIRED_SKILL_HEADINGS = (
     "## Completion format",
 )
 LOCAL_LINK = re.compile(r"\]\(([^)]+)\)")
+
+
+class SiteResourceParser(HTMLParser):
+    """Collect local href/src references from the static site HTML."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.resources: list[str] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        attributes = dict(attrs)
+        for name in ("href", "src"):
+            value = attributes.get(name)
+            if value:
+                self.resources.append(value)
 
 
 def fail(message: str) -> None:
@@ -112,6 +143,102 @@ def validate_cases(errors: list[str]) -> None:
                 errors.append(f"{label} must have a non-empty string array for {field}")
 
 
+def validate_site(errors: list[str]) -> None:
+    site = ROOT / "site"
+    index = site / "index.html"
+    if not index.is_file():
+        return
+
+    html = index.read_text(encoding="utf-8")
+    requirements = {
+        "canonical URL": f'<link rel="canonical" href="{SITE_URL}">',
+        "Open Graph URL": f'<meta property="og:url" content="{SITE_URL}">',
+        "Open Graph image": f'<meta property="og:image" content="{SITE_URL}assets/og-card.png">',
+        "Twitter card": 'name="twitter:card" content="summary_large_image"',
+        "responsive viewport": 'name="viewport" content="width=device-width, initial-scale=1"',
+        "skip link": 'class="skip-link" href="#main"',
+        "local stylesheet": 'href="styles.css"',
+        "local script": 'src="app.js"',
+        "favicon": 'href="assets/mark.svg"',
+    }
+    for label, snippet in requirements.items():
+        if snippet not in html:
+            errors.append(f"site/index.html is missing {label}")
+
+    title = re.search(r"<title>(.*?)</title>", html, flags=re.IGNORECASE | re.DOTALL)
+    if not title or not title.group(1).strip():
+        errors.append("site/index.html must have a non-empty title")
+    elif not 30 <= len(title.group(1).strip()) <= 60:
+        errors.append("site/index.html title should be 30–60 characters")
+
+    description = re.search(
+        r'<meta\s+name="description"\s+content="([^"]*)"', html, flags=re.IGNORECASE
+    )
+    if not description or not 50 <= len(description.group(1)) <= 160:
+        errors.append("site/index.html description must be 50–160 characters")
+
+    if len(re.findall(r"<h1\b", html, flags=re.IGNORECASE)) != 1:
+        errors.append("site/index.html must contain exactly one h1")
+
+    robots = site / "robots.txt"
+    if robots.is_file() and f"Sitemap: {SITE_URL}sitemap.xml" not in robots.read_text(encoding="utf-8"):
+        errors.append("site/robots.txt must point to the canonical sitemap")
+
+    sitemap = site / "sitemap.xml"
+    if sitemap.is_file() and f"<loc>{SITE_URL}</loc>" not in sitemap.read_text(encoding="utf-8"):
+        errors.append("site/sitemap.xml must contain the canonical home URL")
+
+    not_found = site / "404.html"
+    if not_found.is_file():
+        text = not_found.read_text(encoding="utf-8")
+        if 'name="robots" content="noindex"' not in text:
+            errors.append("site/404.html must be marked noindex")
+
+    card = site / "assets/og-card.png"
+    if card.is_file():
+        data = card.read_bytes()
+        if len(data) < 24 or data[:8] != b"\x89PNG\r\n\x1a\n":
+            errors.append("site/assets/og-card.png is not a valid PNG")
+        else:
+            width, height = struct.unpack(">II", data[16:24])
+            if (width, height) != (1200, 630):
+                errors.append("site/assets/og-card.png must be 1200×630 pixels")
+
+    workflow = ROOT / ".github/workflows/deploy-pages.yml"
+    if workflow.is_file():
+        text = workflow.read_text(encoding="utf-8")
+        for label, snippet in (
+            ("site-only artifact path", "path: site"),
+            ("configure-pages action", "actions/configure-pages@v5"),
+            ("Pages artifact action", "actions/upload-pages-artifact@v4"),
+            ("Pages deployment action", "actions/deploy-pages@v4"),
+            ("Pages permission", "pages: write"),
+            ("OIDC permission", "id-token: write"),
+            ("manual workflow trigger", "workflow_dispatch"),
+        ):
+            if snippet not in text:
+                errors.append(f"Pages workflow is missing {label}")
+
+
+def validate_site_resources(errors: list[str]) -> None:
+    site = ROOT / "site"
+    for relative in ("index.html", "404.html"):
+        path = site / relative
+        if not path.is_file():
+            continue
+        parser = SiteResourceParser()
+        parser.feed(path.read_text(encoding="utf-8"))
+        for value in parser.resources:
+            parsed = urlsplit(value)
+            if parsed.scheme or parsed.netloc or value.startswith("#") or not parsed.path:
+                continue
+            target = (site / unquote(parsed.path)).resolve()
+            if not target.is_relative_to(site.resolve()):
+                errors.append(f"Local site resource escapes site/: {relative} -> {value}")
+            elif not target.exists():
+                errors.append(f"Missing site resource in {relative}: {value}")
+
+
 def validate_local_markdown_links(errors: list[str]) -> None:
     for markdown in ROOT.rglob("*.md"):
         if ".git" in markdown.parts:
@@ -135,13 +262,18 @@ def main() -> int:
     validate_files(errors)
     validate_skill(errors)
     validate_cases(errors)
+    validate_site(errors)
+    validate_site_resources(errors)
     validate_local_markdown_links(errors)
     if errors:
         for error in errors:
             fail(error)
         print(f"Repository validation failed with {len(errors)} issue(s).")
         return 1
-    print("Repository validation passed: required files, skill metadata, eval cases, and local Markdown links are valid.")
+    print(
+        "Repository validation passed: required files, skill metadata, eval cases, "
+        "static site assets, Pages workflow, and local Markdown links are valid."
+    )
     return 0
 
 
