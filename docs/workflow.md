@@ -2,11 +2,11 @@
 
 The skill is a loop, not a rigid checklist. Use more investigation and stronger verification when the risk is higher. A typo fix should stay small; a permission change, migration, or security boundary needs more care.
 
-## 1. Inspect before acting
+## 1. Look before writing
 
-Read the repository's agent instructions, the relevant code, nearby tests, and the current working-tree changes. Find the project's actual test and build commands in its documentation or configuration. Do not replace discovery with assumptions from another codebase.
+Start with read-only reconnaissance. Read the repository's agent instructions and inspect the current working-tree changes. Locate the relevant implementation, trace how the requested behavior reaches it, and look for nearby tests and established patterns. Find the actual test and build commands in project documentation or configuration.
 
-Before editing, know what the user asked for and what files are already modified. Preserve unrelated work.
+Do not edit code, tests, or documentation just to discover how the project is structured. Keep the inspection focused: a one-line text change does not require reading the entire repository. Before the first write, the agent should be able to name the relevant implementation path, the behavior it intends to change, and the most useful verification step. If it cannot, it should keep investigating without writes or ask the user when the repository does not answer the question.
 
 ## 2. Define a bounded outcome
 
@@ -34,8 +34,8 @@ State what changed and what you actually verified. List checks as passed, failed
 
 ## Adjust the workflow to risk
 
-- **Low risk:** inspect nearby code, make the direct change, run a focused check, review the diff.
-- **Moderate risk:** identify behavior and compatibility constraints, plan a few steps, add or update regression tests, run relevant suite(s), inspect the diff.
+- **Low risk:** inspect the direct file and its relevant instructions or pattern, make the direct change, run a focused check, review the diff.
+- **Moderate risk:** trace the affected behavior, identify compatibility constraints, plan a few steps, add or update regression tests, run relevant suite(s), inspect the diff.
 - **High impact:** clarify requirements, evaluate rollback and data/security consequences, request approval for external or destructive actions, and verify with an appropriate staging or review process.
 
 The agent must not treat “stop the line” as a reason to stop all work on every unrelated failing check. It must stop claiming the current change is verified, investigate whether the check is relevant or pre-existing, and clearly report the result.

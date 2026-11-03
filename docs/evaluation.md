@@ -6,8 +6,8 @@ A skill prompt is a hypothesis about behavior. This repository includes scenario
 
 1. Choose an agent and model, and record the exact product/model name and version.
 2. Use the same repository state and task prompt with and without the skill. Start each run from a clean, equivalent working tree.
-3. Record the agent's tool actions, diff, verification commands and outputs, final report, and any intervention needed.
-4. Score each criterion in [`../evals/cases.json`](../evals/cases.json) as pass or fail. Do not award points for confident wording without evidence.
+3. Record the agent's chronological tool actions, diff, verification commands and outputs, final report, and any intervention needed.
+4. Score each criterion in [`../evals/cases.json`](../evals/cases.json) as pass or fail. For `no-edit-before-understanding`, the action trace must show that the agent inspected applicable instructions, existing changes, implementation path, and relevant tests before its first file write. A final explanation claiming that it “looked first” is not evidence.
 5. Publish results with the number of runs, setup, all failures, and limitations. Do not generalize from a small hand-picked sample.
 
 ## Score each run
