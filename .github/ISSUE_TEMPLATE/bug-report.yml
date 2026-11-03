@@ -1,0 +1,37 @@
+name: Skill behavior issue
+description: Report a reproducible problem with the instructions or repository checks
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Share only information you are allowed to disclose. Redact source code,
+        customer details, credentials, and other private data.
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What should the skill or check have done?
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What happened instead? Include a minimal redacted example.
+    validations:
+      required: true
+  - type: input
+    id: host
+    attributes:
+      label: Agent host and version
+      placeholder: Claude Code x.y.z
+  - type: input
+    id: model
+    attributes:
+      label: Model and version
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: Include the skill version or commit and relevant setup.

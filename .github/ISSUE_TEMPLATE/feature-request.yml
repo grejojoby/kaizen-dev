@@ -1,0 +1,23 @@
+name: Improvement proposal
+description: Suggest a focused change to the workflow, skill, or documentation
+title: "[Proposal]: "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+      description: What recurring developer or agent problem does this address?
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Observable behavior
+      description: What should an agent do differently after the change?
+    validations:
+      required: true
+  - type: textarea
+    id: tradeoffs
+    attributes:
+      label: Tradeoffs and evidence
+      description: What could this make worse? Include sources or a reproducible example if available.
