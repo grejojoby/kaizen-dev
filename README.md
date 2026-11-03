@@ -27,7 +27,7 @@ LOOK → BOUND → CHANGE → VERIFY → REPORT
 - **Look before writing:** read project instructions, inspect existing changes, trace the relevant code path, and find its tests. Do not edit to discover the codebase.
 - **Bound:** define the observable result; ask only when a material choice is unclear.
 - **Change:** make the smallest complete fix that follows the project's patterns.
-- **Verify:** run relevant checks; investigate failures and never claim a check passed unless it did.
+- **Verify:** test meaningful behavior, not line counts; run relevant checks, investigate failures, and do not claim a check passed unless it did.
 - **Report:** summarize the diff, checks, and any remaining risk.
 
 No speculative features. No unrelated cleanup. No hidden failing tests.

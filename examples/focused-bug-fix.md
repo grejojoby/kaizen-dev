@@ -18,6 +18,6 @@ The agent assumes the framework and API shape, rewrites the list page, adds an e
 
 ## What makes this “smallest complete”?
 
-It uses the project's established empty-state design, fixes the observable bug, and tests the empty result. It does not assume an architecture, redesign unrelated states, or hide an unverified test result.
+It uses the project's established empty-state design, fixes the observable bug, and tests the empty result because that check would catch the user-visible blank-page regression. It does not add a test merely to call a trivial helper, assume an architecture, redesign unrelated states, or hide an unverified test result.
 
 This is a process example, not a benchmark or a claim about any particular agent's output.

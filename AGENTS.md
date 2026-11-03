@@ -22,7 +22,7 @@ If a change crosses these areas, keep the skill, examples, evaluations, site, an
 
 ## Quality bar
 
-Keep the skill concise and executable as instructions. Prefer plain English. Japanese terms must be defined and framed as concepts adapted for software, not stereotypes. Any claim about results or agent performance needs reproducible evidence and disclosed limitations. Add or adjust an evaluation case when expected agent behavior changes.
+Keep the skill concise and executable as instructions. Prefer plain English. Japanese terms must be defined and framed as concepts adapted for software, not stereotypes. Any claim about results or agent performance needs reproducible evidence and disclosed limitations. Tests should protect meaningful behavior and risk, not coverage percentages; add or adjust an evaluation case when expected agent behavior changes.
 
 Keep the landing page static, responsive, accessible, and dependency-free. Do not add tracking or publish private data. Keep canonical and Open Graph URLs, `robots.txt`, and `sitemap.xml` aligned to the current GitHub Pages origin.
 

@@ -16,11 +16,13 @@ Ask a question only when an unanswered choice would materially affect behavior, 
 
 ## 3. Make the smallest complete change
 
-Follow existing patterns. Add only the code, test, documentation, or migration needed for the requested behavior. Avoid speculative configuration, new dependencies, and unrelated refactoring. “Smallest” must still be complete: do not omit error handling, accessibility, or tests when they are part of the requirement.
+Follow existing patterns. Add only the code, test, documentation, or migration needed for the requested behavior. Avoid speculative configuration, new dependencies, and unrelated refactoring. “Smallest” must still be complete: do not omit error handling or accessibility when they are part of the requirement, and do add tests when they protect meaningful behavior or risk.
+
+Choose tests for the assurance they provide—not to execute every line or chase 100% coverage. Prefer assertions about observable behavior, meaningful contracts, edge cases, and regressions at the layer where users or integrations encounter them. If an obvious one-line utility has no separate contract and its callers already have useful coverage, a duplicate direct unit test may add no value. Conversely, short code still merits a test when it carries a business rule, boundary, or meaningful failure mode. When you add no test, briefly explain the decision and run the most relevant existing check.
 
 ## 4. Verify in a useful order
 
-Start with the narrowest relevant check, such as one unit test or a linter for changed files. Then run broader checks when the risk and runtime justify them. For behavior that depends on a running application, use the project's documented manual or integration verification too.
+Start with the narrowest relevant check, such as a behavior-focused unit or integration test or a linter for changed files. Then run broader checks when the risk and runtime justify them. For behavior that depends on a running application, use the project's documented manual or integration verification too. A useful test should fail for a meaningful regression—not merely prove that a trivial function was called.
 
 When something fails, inspect the failure. Compare with a baseline if practical. A known pre-existing failure is still important to report, but it is not automatically a regression caused by the change.
 

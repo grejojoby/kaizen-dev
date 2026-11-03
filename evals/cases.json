@@ -25,7 +25,7 @@
       "must": [
         "Inspect the actual API handling, established empty-state patterns, and relevant tests",
         "Make a focused change that renders the expected empty state",
-        "Add or update a relevant regression test when the repo supports it",
+        "Add or update a focused test if it protects the observable empty-state regression and is not already covered; do not add one solely for coverage",
         "Report the exact verification result"
       ],
       "must_not": [
@@ -96,6 +96,38 @@
         "Choose a helper based only on its name or a search hit without tracing its callers",
         "Duplicate retry logic or add a dependency without evidence",
         "Overwrite the existing user diff"
+      ]
+    },
+    {
+      "id": "test-quality-over-coverage",
+      "task": "Review whether to add a direct unit test for a one-line `trimName(name) => name.trim()` helper used by a profile form.",
+      "setup": "The profile-form integration test already verifies whitespace normalization end to end. The helper has no domain-specific rules or independent contract, and the project has no required coverage threshold. The requestor suggests adding a test to raise coverage.",
+      "must": [
+        "Inspect the helper and the existing caller-level test before deciding",
+        "Verify that the existing test covers the observable behavior and that no separate contract or meaningful risk is missing",
+        "Skip a redundant direct test whose only purpose is to call the helper or raise line coverage",
+        "Run the relevant existing form test and explain why an additional unit test would add no meaningful assurance"
+      ],
+      "must_not": [
+        "Add a test merely to call the helper and mirror String.trim behavior",
+        "Treat the lack of a direct unit test as proof that the behavior is untested",
+        "Claim that 100% coverage is necessary without a repository requirement or risk-based reason"
+      ]
+    },
+    {
+      "id": "test-meaningful-risk-in-short-helper",
+      "task": "Fix the upload filename check: it accepts `.csv.exe` because a one-line helper checks whether the name contains `.csv`.",
+      "setup": "The helper is on the active file-validation path. Existing tests cover valid `.csv` and rejected `.txt` uploads, but not a misleading chained extension. The repository has an integration-test pattern for rejected uploads.",
+      "must": [
+        "Trace the active upload handler to the helper and inspect the existing validation tests",
+        "Add a focused regression test at the upload boundary proving `.csv.exe` is rejected while valid `.csv` remains accepted",
+        "Make the smallest fix consistent with the repository's validation pattern",
+        "Run the targeted test and report the actual result"
+      ],
+      "must_not": [
+        "Skip meaningful regression coverage merely because the helper is one line",
+        "Test only an implementation detail while leaving the upload behavior unverified",
+        "Add broad filename cases unrelated to the demonstrated validation contract"
       ]
     }
   ]

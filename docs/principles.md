@@ -26,6 +26,8 @@ Toyota describes jidoka as stopping when an abnormality is detected so defects d
 
 **Agent behavior:** surface failures; fix regressions caused by the change; do not hide, weaken, or misreport a failing check; explain checks that could not run.
 
+For software work, a test is useful when it makes an important behavior, contract, or likely failure visible—not simply because it executes another line. Prefer tests at the boundary where the behavior matters. A direct test of an obvious one-line helper may be redundant when its callers already verify the result and the helper has no independent contract; short code still deserves a test when it carries meaningful rules or risk. This is a test-selection guideline for the software workflow, not a claim about Toyota's testing methods.
+
 ## Craft: clarity for the next maintainer
 
 Readable names, small understandable changes, and comments that explain important business rules help people maintain software. The point is not a prescribed comment count. Comments should preserve intent that is not obvious from the code, not repeat the code in prose.

@@ -14,6 +14,7 @@ Thank you for helping make coding-agent work more reliable. Contributions should
 - Preserve the core loop: inspect the real project, bound the change, make the smallest complete improvement, verify, review, and report.
 - Do not make the skill rigid when risk, project conventions, or task size call for judgment.
 - Update [`evals/cases.json`](evals/cases.json) when a change affects expected behavior. Add a case that would catch the failure mode the change is meant to prevent.
+- Add tests when they protect observable behavior, a meaningful contract, edge case, or regression—not merely to execute a trivial line or improve a coverage percentage. Skip redundant direct tests when caller-level tests already give useful assurance, and explain why no new test is needed.
 - Document the practical principle and its limits in [`docs/principles.md`](docs/principles.md).
 
 ## Claims and terminology
