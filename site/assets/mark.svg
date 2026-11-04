@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-labelledby="title">
   <title id="title">Kaizen Dev mark</title>
-  <rect x="1" y="1" width="46" height="46" fill="#1d3458"/>
-  <path d="M13 12v24M15 25l16-13M16 25l16 11" fill="none" stroke="#f3efe6" stroke-linecap="square" stroke-width="3"/>
-  <path d="M34 9h5v5h-5z" fill="#c94d37"/>
+  <rect x="1" y="1" width="46" height="46" rx="11" fill="#111925" stroke="#2b3749"/>
+  <path d="M15 12v24M17 24l16-12M18 24l15 12" fill="none" stroke="#c2ff58" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.2"/>
+  <circle cx="37" cy="11" r="3" fill="#8574ff"/>
 </svg>
